@@ -1,0 +1,13 @@
+{
+  "name": "hello-node-js",
+  "version": "1.0.0",
+  "description": "A simple node-js-express app",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "Jaison",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.2"
+  }
+}
