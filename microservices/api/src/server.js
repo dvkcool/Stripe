@@ -4,14 +4,14 @@ var bodyparser = require('body-parser');
 var app = express();
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({extended: false}));
-
+var key = process.env.secretkey;
 app.post('/charge', function (req, res) {
 
 var amount = req.body.amount;
 var currency = req.body.currency;
 var source = req.body.src;
 var description = req.body.description;
-var key = process.env.secretkey;
+
 var stripe = require('stripe')(key);
  stripe.charges.create(
 {
@@ -31,7 +31,6 @@ res.send(charge);
 
 app.post('/charge/retrieve', function (req, res) {
  var id = req.body.id;
- var key = process.env.secretkey;
 var stripe = require('stripe')(key);
 stripe.charges.retrieve(
   id,function(err,charge){
@@ -46,7 +45,6 @@ res.send(charge);
 
 app.post('/update', function (req, res) {
  var id = req.body.id;
- var key = process.env.secretkey;
 var description = req.body.description;
 
 var stripe = require('stripe')(key);
@@ -66,7 +64,6 @@ res.send(charge);
 
 app.post('/capture', function (req, res) {
  var id = req.body.id;
- var key = process.env.secretkey;
 var stripe = require('stripe')(key);
 
 stripe.charges.capture(id, function(err,charge){
@@ -81,7 +78,6 @@ res.send(charge);
 
 app.post('/charges/:limit', function (req, res) {
  var limit=req.params.limit;
- var key = process.env.secretkey;
 var stripe = require('stripe')(key);
 
 stripe.charges.list(
