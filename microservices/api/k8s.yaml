@@ -20,7 +20,7 @@ items:
       spec:
         containers:
         - image: hasura/hello-world:latest
-	env:
+          env:
             - name: secretkey
               valueFrom:
                 secretKeyRef:
