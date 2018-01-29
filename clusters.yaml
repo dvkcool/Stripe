@@ -1,7 +1,7 @@
 - alias: hasura
   config:
     configmap: controller-conf
-    namespace: hasura
+    namespace: advance88-hasura
   data: null
-  kubeContext: aphoristically63
-  name: aphoristically63
+  kubeContext: advance88
+  name: advance88
