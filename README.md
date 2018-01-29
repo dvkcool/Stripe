@@ -1,7 +1,6 @@
-# hello-nodejs-express
+#Stripe Payments Application
 
-This quickstart consists of a basic hasura project with a simple nodejs express app running on it. Once this project is deployed, you will have the nodejs app running on your [cluster](https://docs.hasura.io/0.15/manual/getting-started/index.html#concept-2-a-hasura-cluster).
-
+This quickstart consists of a basic hasura project with basic Stripe payment app integrated on both Web(using React) and on mobile (using React-native).
 Follow along below to learn about how this quickstart works.
 
 ## Prerequisites
@@ -38,12 +37,10 @@ $ git --version
 ## Getting started
 
 ```sh
-$ # Get the project folder and create the cluster in one shot
-$ hasura quickstart hasura/hello-nodejs-express
+$ # Cloning this project
+$ git clone git@github.com:dvkcool/Stripe-backend.git
 
-$ # Navigate into the Project
-$ cd hello-nodejs-express
-
+$ cd Stripe-backend/
 ```
 
 ![Quickstart](https://raw.githubusercontent.com/hasura/hello-nodejs-express/new/assets/quickstart.png "Quickstart")
@@ -53,17 +50,19 @@ The `quickstart` command does the following:
 2. Creates a new trial hasura cluster for you and sets that cluster as the default cluster for this project. (In this case, the cluster created is called `bogey45`)
 3. Initializes `hello-nodejs-express` as a git repository and adds the necessary git remotes.
 
-## The Hasura Cluster
-
-Everytime you perform a `hasura quickstart <quickstart-name>`, hasura creates a free cluster for you. Every cluster is given a name, in this case, the name of the cluster is `bogey45`. To view the status and other information about this cluster:
-
+## Add a new cluster to this project
+1. Delete the contents of `cluster.yaml`
 ```sh
-$ hasura cluster status
+$ # Create a cluster using following command
+$ hasura cluster create --type free
+
+$ # Copy the cluster name from above command and add this cluster to the project
+$ # Add the cluster and alias it to an easier name
+$ hasura cluster add newcluster12 -c hasura
+
+$ # Also add your ssh-keys to cluster
+$ hasura ssh-key add
 ```
-
-![ClusterStatus](https://raw.githubusercontent.com/hasura/hello-nodejs-express/new/assets/clusterstatus.png "ClusterStatus")
-
-The `Cluster Configuration` says that the local and cluster configurations are different, this is because we have not deployed our local project to our cluster. Let's do that next.
 
 ## Deploy app to cluster
 
@@ -85,25 +84,9 @@ The URL should return "Hello World".
 
 ### Deploying changes
 
-Now, lets make some changes to our `nodejs` app and then deploy those changes.
+Now, lets make some changes to our backend app and then deploy those changes.
 
-Modify the `server.js` file at `microservices/api/src/service.js` by uncommenting line 14 - 18
-
-```javascript
-app.get('/json', function(req, res) {
-  res.json({
-    message: 'Hello world'
-  })
-});
-```
-
-The above code is adding another route which returns "Hello world" as a JSON in the format
-
-```json
-{
-  "message": "Hello world"
-}
-```
+Modify the `server.js` file at `microservices/api/src/service.js` to change your purpose.
 
 Save `server.js`.
 
@@ -116,7 +99,7 @@ $ git commit -m 'Added a new route'
 $ git push hasura master
 ```
 
-To see the changes, open the URL and navigate to `/json` (`https://api.<cluster-name>.hasura-app.io/json`, replace `<cluster-name>` with your cluster name)
+To see the changes, open the URL and navigate to specific end point to see changes.
 
 ### View Logs
 
@@ -127,70 +110,15 @@ $ # app is the service name
 $ hasura microservice logs app
 ```
 
-## Customize your deployment
+## Front end 
 
-### Dockerfile
+### React-native 
+An application for android showing the front-end interface is as follows:
+ ![screen1](https://github.com/dvkcool/stripe-charge/blob/master/demo/screen1.png?raw=true)
+ ![screen2](https://github.com/dvkcool/stripe-charge/blob/master/demo/screen2.png?raw=true)
+ ![screen3](https://github.com/dvkcool/stripe-charge/blob/master/demo/screen3.png?raw=true)
 
-Microservices on Hasura are deployed as Docker containers managed on a Kubernetes cluster. You can know more about this [here](https://docs.hasura.io/0.15/manual/custom-microservices/develop-custom-services/index.html#using-a-dockerfile)
+The source code can be found [here](https://github.com/dvkcool/stripe-charge/). 
 
-A `Dockerfile` contains the instructions for building the docker image. Therefore, understanding how the `Dockerfile` works will help you tweak this quickstart for your own needs.
-
-```Dockerfile
-
-# Step 1: Fetches a base container which has node installed on it
-FROM mhart/alpine-node:7.6.0
-
-# Step 2: Adds everything from /microservices/api/src to a /src directory inside the container
-ADD src /src
-
-# Step 3: Sets the work directory to be /src
-WORKDIR /src
-
-# Step 4: Installs the node modules inside the container
-# Note: Since at STEP 3 we set the work directory to be /src, npm install is run inside the /src directory which has the package.json
-RUN npm install
-
-#Step 5
-# This is the instruction to run the server
-CMD ["node", "server.js"]
-```
-
-### Migrating existing app
-
-If you already have a prebuilt nodejs app and would want to use that. You have to replace the contents inside the `microservices/api/src` directory with your app files.
-
-What matters is that the `Dockerfile` and the `k8s.yaml` file remain where they are, i.e at `microservices/api/`. Ensure that you make the necessary changes to the `Dockerfile` such that it runs your app. You can learn more about `Docker` and `Dockerfiles` from [here](https://docs.docker.com/)
-
-## Running the app locally
-
-Everytime you push, your code will get deployed on a public URL. However, for faster iteration you should locally test your changes.
-
-### Running on your machine
-
-```sh
-$ # Navigate to the src directory
-$ cd microservices/api/src
-
-$ # Install the node dependencies
-$ npm install
-
-$ # Start the server
-$ node server.js
-```
-
-Your app will be running on your local port 8080
-
-### Running on a local docker container
-
-You can use the following steps to test out your dockerfile locally before pushing it to your cluster
-
-```sh
-$ # Navigate to the api directory
-$ cd microservices/api
-
-$ # Build the docker image (Note the . at the end, this searches for the Dockerfile in the current directory)
-$ docker build -t nodejs-express .
-
-$ # Run the command inside the container and publish the containers port 8080 to the localhost 8080 of your machine
-$ docker run -p 8080:8080 -ti nodejs-express
-```
+Also the required documentation of front-end can be found [here](https://github.com/dvkcool/stripe-charge/blob/master/demo/README.md?raw=true)
+Some more gif demos are included in documentation too.
