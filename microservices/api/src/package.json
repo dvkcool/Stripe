@@ -1,13 +1,21 @@
 {
-  "name": "hello-node-js",
+  "name": "myapp",
   "version": "1.0.0",
-  "description": "A simple node-js-express app",
+  "description": "stripe api",
+  "main": "server.js",
+  "dependencies": {
+    "document": "^0.4.7",
+    "express": "^4.16.2",
+    "express-validator": "^4.3.0",
+    "request": "^2.83.0",
+    "stripe": "^5.4.0",
+    "rest": "^2.0.0"
+  },
+  "devDependencies": {},
   "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
-  "author": "Jaison",
-  "license": "ISC",
-  "dependencies": {
-    "express": "^4.16.2"
-  }
+  "author": "Ravikant & Divyanshu",
+  "license": "ISC"
 }

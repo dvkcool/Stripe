@@ -20,6 +20,12 @@ items:
       spec:
         containers:
         - image: hasura/hello-world:latest
+	env:
+            - name: secretkey
+              valueFrom:
+                secretKeyRef:
+                  key: secretkey.key
+                  name: hasura-secrets
           imagePullPolicy: IfNotPresent
           name: api
           ports:

@@ -93,7 +93,7 @@ res.send(charge);
 
 
 app.get('/', function (req, res) {
-  res.send('Hello world! Ravikant & DVK');
+  res.send('Hello world! Ravikant & Divyanshu');
 });
 
 app.listen(8080, function () {
