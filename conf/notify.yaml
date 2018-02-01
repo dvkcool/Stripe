@@ -7,10 +7,10 @@
 
 email:
   # default can take values 'smtp' or 'sparkPost
-  default: null
+  default: "smtp"
   providers:
     smtp:
-      hostname: ""
+      hostname: "<smtp-hostname>"
       password:
         secretKeyRef:
           key: notify.smtp.password
