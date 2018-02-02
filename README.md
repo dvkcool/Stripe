@@ -1,4 +1,4 @@
-#Stripe Payments Application
+# Stripe Payments Application
 
 This quickstart consists of a basic hasura project with basic Stripe payment app integrated on both Web(using React) and on mobile (using React-native).
 Follow along below to learn about how this quickstart works.
@@ -42,8 +42,6 @@ $ git clone git@github.com:dvkcool/Stripe-backend.git
 
 $ cd Stripe-backend/
 ```
-
-![Quickstart](https://raw.githubusercontent.com/hasura/hello-nodejs-express/new/assets/quickstart.png "Quickstart")
 
 The `quickstart` command does the following:
 1. Creates a new folder in the current working directory called `hello-nodejs-express`
@@ -113,10 +111,14 @@ $ hasura microservice logs app
 ## Front end 
 
 ### React-native 
-An application for android showing the front-end interface is as follows:
+An application for android showing some of the front-end interface is as follows:
+
+_____
  ![screen1](https://github.com/dvkcool/stripe-charge/blob/master/demo/screen1.png?raw=true)
+_____ 
  ![screen2](https://github.com/dvkcool/stripe-charge/blob/master/demo/screen2.png?raw=true)
- ![screen3](https://github.com/dvkcool/stripe-charge/blob/master/demo/screen3.png?raw=true)
+_____
+![screen3](https://github.com/dvkcool/stripe-charge/blob/master/demo/screen3.png?raw=true)
 
 The source code can be found [here](https://github.com/dvkcool/stripe-charge/). 
 
