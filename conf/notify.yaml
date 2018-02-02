@@ -10,7 +10,7 @@ email:
   default: "smtp"
   providers:
     smtp:
-      hostname: "<smtp-hostname>"
+      hostname: "smtp.gmail.com"
       password:
         secretKeyRef:
           key: notify.smtp.password
