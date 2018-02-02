@@ -36,7 +36,7 @@ sms:
           key: notify.msg91.key
           name: hasura-secrets
     twilio:
-      from: ""
+      from: "Divyanshu"
       accountSid:
         secretKeyRef:
           key: notify.twilio.accountsid
