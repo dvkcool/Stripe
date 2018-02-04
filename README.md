@@ -122,5 +122,5 @@ _____
 
 The source code can be found [here](https://github.com/dvkcool/stripe-charge/). 
 
-Also the required documentation of front-end can be found [here](https://github.com/dvkcool/stripe-charge/blob/master/demo/README.md?raw=true)
+Also the required documentation of front-end can be found [here](https://github.com/dvkcool/stripe-charge/blob/master/README.md)
 Some more gif demos are included in documentation too.
