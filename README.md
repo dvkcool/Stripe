@@ -1,7 +1,7 @@
 # Stripe Payments Application
 
 This quickstart consists of a basic hasura project with basic Stripe payment app integrated on both Web(using React) and on mobile (using React-native).
-Follow along below to learn about how this quickstart works.
+Follow along below to learn about how this quickstart  works.
 
 ## Prerequisites
 
