@@ -2,12 +2,14 @@ import React, { Component } from 'react'
 import { View, Text,  Alert, Button, TextInput, TouchableOpacity, Platform, Dimensions } from 'react-native';
 import {Card, CardItem, Thumbnail, H1 } from 'native-base';
 import Home from './Home';
+import OtpLogin from './OtpLogin';
 const cluster = require('./../cluster.json');
 export default class App extends Component{
   state = {
     username: '',
     password: '',
-    auth_token: ''
+    auth_token: '',
+    otpm: false,
   }
 
   Signup = async () => {
@@ -64,8 +66,16 @@ export default class App extends Component{
                 console.error(error);
               });
   }
+  OTPm =async () =>{
+    this.setState({otpm: true});
+  }
   render(){
     if(this.state.auth_token==''){
+      if(this.state.otpm){
+        return(
+          <OtpLogin />
+        );
+      }
         return(
 
           <View style={{
@@ -78,7 +88,7 @@ export default class App extends Component{
           <View style={{flex: 1,
                         justifyContent: 'center',
                         alignItems: 'center',}}>
-          <H1 style ={{justifyContent: 'center',  alignItems: 'center', paddingLeft: 10}}> Please login or signup to use</H1><H1> Krishi-suvidha </H1>
+          <H1 style ={{justifyContent: 'center',  alignItems: 'center', paddingLeft: 10}}> Please login or signup to use</H1><H1> Stripe-pay </H1>
           </View>
           <View style={{flex: 2}}>
           <Card style={{width: (Dimensions.get('window').width-50), flex:0 }}>
@@ -139,6 +149,16 @@ export default class App extends Component{
           fontSize: 20,
           color: '#FFFFFF',
         }}> Login </Text></View>
+        </TouchableOpacity>
+        </Card>
+        <Card style={{width: (Dimensions.get('window').width-50), flex:0, }}>
+        <TouchableOpacity onPress={this.OTPm.bind(this)}>
+        <View style={{height: 50, backgroundColor: 'orange',justifyContent: 'center',
+        alignItems: 'center',}}>
+        <Text style={{
+          fontSize: 20,
+          color: 'white',
+        }}> Login with OTP </Text></View>
         </TouchableOpacity>
         </Card>
         </View>
