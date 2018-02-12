@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
 import { View, Text,  Alert, Button, TextInput, TouchableOpacity, Platform, Dimensions, Image, StyleSheet, KeyboardAvoidingView, ScrollView } from 'react-native';
-import {Card, CardItem, Thumbnail, H3, Header, Tab, Tabs } from 'native-base';
+import {Card, CardItem, Thumbnail, H3 } from 'native-base';
 const cluster = require('./../cluster.json');
-import Cardpay from './Cardpay';
-import Bank from './Bank';
-export default class Home extends Component{
+export default class Card extends Component{
   state = {
     user: this.props.user,
     auth_token: this.props.auth_tok,
@@ -66,18 +64,76 @@ export default class Home extends Component{
   }
   render(){
     return(
-      <View style={styles.maincontainer}>
-      <HomeText screen = {this.state.screen} navigation={this.props.navigation}/>
-      <Tabs  onChangeTab={({ i, ref, from }) => this.setState({ screen: i })} >
-        <Tab heading={ <TabHeading><Icon name="ios-card" /><Text> Card Payments</Text></TabHeading>}>
-        <CardPay />
-        </Tab>
-        <Tab heading={ <TabHeading><Icon name="ios-home"/><Text> Bank Payments </Text></TabHeading>}  >
-        <Bank/>
-        </Tab>
-        </Tabs>
-      </View>
+      <KeyboardAvoidingView style={styles.maincontainer} behavior="padding">
+      <Image source={require('./images/card.png')} style={{ width: Dimensions.get('window').width-10, flex: 0}}/>
+      <View style={styles.container} >
 
+
+      <H3> Please enter following details to complete payment process </H3>
+      <Card style={{width: (Dimensions.get('window').width-50), flex:0 }}>
+
+      <TextInput
+       placeholder="Enter Card number"
+       onChangeText={ TextInputValue => this.setState({ number : TextInputValue }) }
+       underlineColorAndroid='transparent'
+       style={styles.inputbox}
+     />
+     </Card>
+     <Card style={{width: (Dimensions.get('window').width-50), flex:0 }}>
+     <View style={styles.tcard}>
+
+     <TextInput
+      placeholder="Exp_month"
+      onChangeText={ TextInputValue => this.setState({ exp_month : TextInputValue }) }
+      underlineColorAndroid='transparent'
+      style={styles.inputdou}
+    />
+    <TextInput
+     placeholder="Exp_year"
+     onChangeText={ TextInputValue => this.setState({ exp_year : TextInputValue }) }
+     underlineColorAndroid='transparent'
+     style={styles.inputdou}
+   />
+   </View>
+    </Card>
+    <Card style={{width: (Dimensions.get('window').width-50), flex:0 }}>
+
+    <TextInput
+     placeholder="CVC"
+     onChangeText={ TextInputValue => this.setState({ cvc : TextInputValue }) }
+     underlineColorAndroid='transparent'
+     style={styles.inputdou}
+   />
+   </Card>
+   <Card style={{width: (Dimensions.get('window').width-50), flex:0 }}>
+  <View style={styles.tcard}>
+   <TextInput
+    placeholder="Amount"
+    onChangeText={ TextInputValue => this.setState({ amount : TextInputValue }) }
+    underlineColorAndroid='transparent'
+    style={styles.inputdou}
+  />
+  <TextInput
+   placeholder="Currency"
+   onChangeText={ TextInputValue => this.setState({ cur : TextInputValue }) }
+   underlineColorAndroid='transparent'
+   style={styles.inputdou}
+ />
+  </View>
+  </Card>
+  <Card style={{width: (Dimensions.get('window').width-50), flex:0, }}>
+  <TouchableOpacity onPress={this.Paynow.bind(this)}>
+  <View style={{height: 50, backgroundColor: 'purple',justifyContent: 'center',
+  alignItems: 'center',}}>
+  <Text style={{
+    fontSize: 20,
+    color: '#FFFFFF',
+  }}> Pay now </Text></View>
+  </TouchableOpacity>
+  </Card>
+
+      </View>
+      </KeyboardAvoidingView>
     );
   }
 }
@@ -111,24 +167,3 @@ const styles = StyleSheet.create({
     borderRadius: 5 ,
   },
 });
-class HomeText extends Component{
-    render(){
-      if(this.props.screen===0){
-        return(
-          <Header hasTabs>
-          <Text> Card Payments Payments</Text>
-          </Header>
-        );
-      }
-      if(this.props.screen===1){
-        return(
-          <Header hasTabs>
-            <Text> Bank Payments</Text>
-           </Header>
-        );
-      }
-      return(
-        <Text> Fault</Text>
-      );
-    }
-  }

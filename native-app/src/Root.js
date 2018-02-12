@@ -178,7 +178,7 @@ export default class App extends Component{
       }
       else{
         return(
-          <Home />
+          <Home auth_tok={this.state.auth_token} user={this.state.username} />
         );
     }
 
