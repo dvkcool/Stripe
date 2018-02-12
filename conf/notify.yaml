@@ -40,13 +40,4 @@ sms:
         secretKeyRef:
           key: notify.msg91.key
           name: hasura-secrets
-    twilio:
-      from: "+12017405291"
-      accountSid:
-        secretKeyRef:
-          key: notify.twilio.accountsid
-          name: hasura-secrets
-      authToken:
-        secretKeyRef:
-          key: notify.twilio.authtoken
-          name: hasura-secrets
+
