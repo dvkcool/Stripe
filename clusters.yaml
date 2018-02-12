@@ -1,7 +1,7 @@
 - alias: hasura
   config:
     configmap: controller-conf
-    namespace: advance88-hasura
+    namespace: adsorb13-hasura
   data: null
-  kubeContext: advance88
-  name: advance88
+  kubeContext: adsorb13
+  name: adsorb13
