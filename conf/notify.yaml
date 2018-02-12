@@ -27,7 +27,7 @@ email:
           name: hasura-secrets
 sms:
   # default can take values 'msg91' or 'twilio'
-  default: hasura
+  default: "hasura"
   providers:
     hasura:
       authToken:
