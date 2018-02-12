@@ -15,7 +15,7 @@ export default (variables = variable) => {
     borderWidth: variables.borderWidth,
     borderRadius: 2,
     borderColor: variables.cardBorderColor,
-    flexWrap: "nowrap",
+    flexWrap: "wrap",
     backgroundColor: variables.cardDefaultBg,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },

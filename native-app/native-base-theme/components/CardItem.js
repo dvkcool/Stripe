@@ -2,23 +2,6 @@ import variable from './../variables/platform';
 
 export default (variables = variable) => {
 	const platform = variables.platform;
-	const transparentBtnCommon = {
-		'NativeBase.Text': {
-			fontSize: variables.DefaultFontSize - 4,
-			color: variables.sTabBarActiveTextColor,
-		},
-		'NativeBase.Icon': {
-			fontSize: variables.iconFontSize - 10,
-			color: variables.sTabBarActiveTextColor,
-			marginHorizontal: null,
-		},
-		'NativeBase.IconNB': {
-			fontSize: variables.iconFontSize - 10,
-			color: variables.sTabBarActiveTextColor,
-		},
-		paddingVertical: null,
-		paddingHorizontal: null
-	}
 
 	const cardItemTheme = {
 		'NativeBase.Left': {
@@ -46,7 +29,21 @@ export default (variables = variable) => {
 			},
 			'NativeBase.Button': {
 				'.transparent': {
-					...transparentBtnCommon,
+					'NativeBase.Text': {
+						fontSize: variables.DefaultFontSize - 4,
+						color: variables.sTabBarActiveTextColor,
+					},
+					'NativeBase.Icon': {
+						fontSize: variables.iconFontSize - 10,
+						color: variables.sTabBarActiveTextColor,
+						marginHorizontal: null,
+					},
+					'NativeBase.IconNB': {
+						fontSize: variables.iconFontSize - 10,
+						color: variables.sTabBarActiveTextColor,
+					},
+					paddingVertical: null,
+					paddingHorizontal: null,
 					paddingRight: variables.listItemPadding + 5,
 				},
 			},
@@ -77,7 +74,21 @@ export default (variables = variable) => {
 			},
 			'NativeBase.Button': {
 				'.transparent': {
-					...transparentBtnCommon,
+					'NativeBase.Text': {
+						fontSize: variables.DefaultFontSize - 4,
+						color: variables.sTabBarActiveTextColor,
+					},
+					'NativeBase.Icon': {
+						fontSize: variables.iconFontSize - 10,
+						color: variables.sTabBarActiveTextColor,
+						marginHorizontal: null,
+					},
+					'NativeBase.IconNB': {
+						fontSize: variables.iconFontSize - 10,
+						color: variables.sTabBarActiveTextColor,
+					},
+					paddingVertical: null,
+					paddingHorizontal: null,
 					paddingRight: variables.listItemPadding + 5,
 					alignSelf: 'stretch',
 				},
@@ -92,7 +103,21 @@ export default (variables = variable) => {
 			},
 			'NativeBase.Button': {
 				'.transparent': {
-					...transparentBtnCommon
+					'NativeBase.Text': {
+						fontSize: variables.DefaultFontSize - 4,
+						color: variables.sTabBarActiveTextColor,
+					},
+					'NativeBase.Icon': {
+						fontSize: variables.iconFontSize - 10,
+						color: variables.sTabBarActiveTextColor,
+						marginHorizontal: null,
+					},
+					'NativeBase.IconNB': {
+						fontSize: variables.iconFontSize - 10,
+						color: variables.sTabBarActiveTextColor,
+					},
+					paddingVertical: null,
+					paddingHorizontal: null,
 				},
 				alignSelf: null,
 			},

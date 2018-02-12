@@ -7,7 +7,7 @@ export default (variables = variable) => {
     ".selected": {
       "NativeBase.IconNB": {
         color: Platform.OS === "ios"
-          ? variables.radioColor
+          ? variables.brandPrimary
           : variables.radioSelectedColorAndroid,
         lineHeight: Platform.OS === "ios" ? 25 : variables.radioBtnLineHeight,
         height: Platform.OS === "ios" ? 20 : undefined

@@ -13,9 +13,9 @@ export default (variables = variable) => {
         alignSelf: "flex-start",
       },
       "NativeBase.Body": {
-        alignSelf: "flex-end",
+        alignSelf: "flex-start",
         alignItems: "flex-start",
-        justifyContent: "center",
+        justifyContent: "left",
         paddingBottom: 26,
       },
       "NativeBase.Right": {
@@ -59,23 +59,6 @@ export default (variables = variable) => {
       shadowRadius: null,
       shadowOpacity: null,
       borderBottomWidth: null,
-      "NativeBase.Left": {
-        flex: 0.3,
-      },
-      "NativeBase.Right": {
-        flex: 0.3,
-      },
-      "NativeBase.Body": {
-        flex: 1,
-        "NativeBase.Segment": {
-          marginRight: 0,
-          alignSelf: 'center',
-          "NativeBase.Button": {
-            paddingLeft: 0,
-            paddingRight: 0
-          }
-        },
-      },
     },
     "NativeBase.Button": {
       justifyContent: "center",
@@ -83,7 +66,7 @@ export default (variables = variable) => {
       alignItems: "center",
       ".transparent": {
         "NativeBase.Text": {
-          color: variables.toolbarBtnTextColor,
+          color: variables.toolbarBtnColor,
           fontWeight: "600",
         },
         "NativeBase.Icon": {
@@ -115,7 +98,7 @@ export default (variables = variable) => {
         "NativeBase.Input": {
           alignSelf: "center",
           lineHeight: 24,
-          height: variables.searchBarInputHeight,
+          height: variables.searchBarHeight,
         },
         alignSelf: "center",
         alignItems: "center",
@@ -156,7 +139,7 @@ export default (variables = variable) => {
             marginLeft: 2,
           },
           "NativeBase.Text": {
-            color: variables.toolbarBtnTextColor,
+            color: variables.toolbarBtnColor,
             fontSize: 17,
             marginLeft: 2,
             lineHeight: 21,
@@ -186,7 +169,7 @@ export default (variables = variable) => {
             marginLeft: 2,
           },
           "NativeBase.Text": {
-            color: variables.toolbarBtnTextColor,
+            color: variables.toolbarBtnColor,
             fontSize: 17,
             top: platform === "ios" ? undefined : -1.5,
           },
@@ -249,7 +232,7 @@ export default (variables = variable) => {
             marginLeft: 5,
           },
           "NativeBase.Text": {
-            color: variables.toolbarBtnTextColor,
+            color: variables.toolbarBtnColor,
             fontSize: 17,
             lineHeight: 21,
           },
@@ -282,7 +265,7 @@ export default (variables = variable) => {
             marginRight: 2,
           },
           "NativeBase.Text": {
-            color: variables.toolbarBtnTextColor,
+            color: variables.toolbarBtnColor,
             fontSize: 17,
             top: platform === "ios" ? undefined : -1.5,
           },

@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
-import { View, Text,  Alert, Button, TextInput, TouchableOpacity, Platform, Dimensions, Image, StyleSheet, KeyboardAvoidingView, ScrollView } from 'react-native';
-import {Card, CardItem, Thumbnail, H3, Header, Tab, Tabs } from 'native-base';
+import { View, Text,  Alert, Button, TextInput, TouchableOpacity, Platform, Dimensions,
+  Image, StyleSheet, KeyboardAvoidingView, ScrollView,  } from 'react-native';
+import {Card, CardItem, Thumbnail, H3, Header, Tab, Tabs, TabHeading, Icon, H1, StyleProvider } from 'native-base';
+import getTheme from './../native-base-theme/components';
+import material from './../native-base-theme/variables/material';
 const cluster = require('./../cluster.json');
 import Cardpay from './Cardpay';
 import Bank from './Bank';
@@ -66,17 +69,20 @@ export default class Home extends Component{
   }
   render(){
     return(
+       <StyleProvider style={getTheme(material)}>
       <View style={styles.maincontainer}>
       <HomeText screen = {this.state.screen} navigation={this.props.navigation}/>
       <Tabs  onChangeTab={({ i, ref, from }) => this.setState({ screen: i })} >
         <Tab heading={ <TabHeading><Icon name="ios-card" /><Text> Card Payments</Text></TabHeading>}>
-        <CardPay />
+        <Cardpay />
         </Tab>
         <Tab heading={ <TabHeading><Icon name="ios-home"/><Text> Bank Payments </Text></TabHeading>}  >
         <Bank/>
         </Tab>
         </Tabs>
       </View>
+      </StyleProvider>
+
 
     );
   }
@@ -92,7 +98,6 @@ const styles = StyleSheet.create({
   maincontainer:{
     paddingTop: Platform.OS === 'ios' ? 0 : Expo.Constants.statusBarHeight,
     flex: 1,
-    paddingLeft: 5,
   },
   container:{
     justifyContent: 'center',
@@ -116,19 +121,21 @@ class HomeText extends Component{
       if(this.props.screen===0){
         return(
           <Header hasTabs>
-          <Text> Card Payments Payments</Text>
+          <H1> Card Payments</H1>
           </Header>
         );
       }
       if(this.props.screen===1){
         return(
           <Header hasTabs>
-            <Text> Bank Payments</Text>
+            <H1> Bank Payments</H1>
            </Header>
         );
       }
       return(
-        <Text> Fault</Text>
+        <Header hasTabs>
+        <H1> Card Payments </H1>
+        </Header>
       );
     }
   }

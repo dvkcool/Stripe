@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { View, Text,  Alert, Button, TextInput, TouchableOpacity, Platform, Dimensions, Image, StyleSheet, KeyboardAvoidingView, ScrollView } from 'react-native';
-import {Card, CardItem, Thumbnail, H3 } from 'native-base';
+import { View, Text,  Alert, Button, TextInput, TouchableOpacity, Platform, Dimensions,
+   Image, StyleSheet, KeyboardAvoidingView, ScrollView } from 'react-native';
+import {Card, CardItem, Thumbnail, H3, Container} from 'native-base';
 const cluster = require('./../cluster.json');
-export default class Card extends Component{
+export default class Cardpay extends Component{
   state = {
     user: this.props.user,
     auth_token: this.props.auth_tok,
@@ -64,7 +65,9 @@ export default class Card extends Component{
   }
   render(){
     return(
+
       <KeyboardAvoidingView style={styles.maincontainer} behavior="padding">
+      <ScrollView>
       <Image source={require('./images/card.png')} style={{ width: Dimensions.get('window').width-10, flex: 0}}/>
       <View style={styles.container} >
 
@@ -133,7 +136,9 @@ export default class Card extends Component{
   </Card>
 
       </View>
+      </ScrollView>
       </KeyboardAvoidingView>
+
     );
   }
 }
