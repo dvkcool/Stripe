@@ -36,7 +36,6 @@ export default class Cardpay extends Component{
    })
    .then((response) => response.json())
    .then((responseJson) => {
-     console.log(responseJson);
    let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
    this.setState({
      isLoading: false,
