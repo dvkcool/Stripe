@@ -1,0 +1,12 @@
+- args:
+    permission:
+      columns:
+      - user
+      - transaction_id
+      - amount
+      - currency
+      - paid
+      filter: {}
+    role: user
+    table: transactions
+  type: create_select_permission

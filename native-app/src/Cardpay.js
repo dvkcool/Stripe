@@ -4,6 +4,9 @@ import { View, Text,  Alert, Button, TextInput, TouchableOpacity, Platform, Dime
 import {Card, CardItem, Thumbnail, H3, Container} from 'native-base';
 const cluster = require('./../cluster.json');
 export default class Cardpay extends Component{
+  static navigationOptions={
+    title: 'Card Payment',
+  }
   state = {
     user: this.props.user,
     auth_token: this.props.auth_tok,
@@ -14,6 +17,8 @@ export default class Cardpay extends Component{
     amount: '50',
     cur: 'usd',
     token: '',
+    paid: false,
+    message: 'Payment successfull',
   }
   Paynow = async () =>{
     fetch('https://api.stripe.com/v1/tokens?card[number]='+this.state.number+'&card[exp_month]='+this.state.exp_month+'&card[exp_year]='+this.state.exp_year+'&card[cvc]='+this.state.cvc+'&amount='+this.state.amount+'&currency='+this.state.cur, {
@@ -31,7 +36,6 @@ export default class Cardpay extends Component{
       }
       else{
         this.setState({ token: data.id });
-        Alert.alert("Success", "Token created "+this.state.token);
         fetch('https://api.'+cluster.name+'.hasura-app.io/charge', {
                 method: 'post',
                 headers: {
@@ -48,10 +52,35 @@ export default class Cardpay extends Component{
                       // Showing response message coming from server updating records.
                       if(res.status==200 || res.status=="succeeded"){
                         Alert.alert("Payment successfull", "Transaction id:"+res.id);
+                        this.setState({paid: true,
+                        transaction_id: res.id});
                       }
                       else{
                         Alert.alert("Payment Failure", ""+res.message)
+                        this.setState({message: res.message});
                       }
+                      fetch('https://data.'+cluster.name+'.hasura-app.io/v1/query', {
+                              method: 'post',
+                              headers: {
+                                'Content-Type': 'application/json'
+                              },
+                              body: JSON.stringify({
+                                "type": "insert",
+                                "args": {
+                                  "table": "transactions",
+                                  "objects": [
+                                      {
+                                          "user": this.props.screenProps.user,
+                                          "transaction_id": this.state.transaction_id,
+                                          "amount": this.state.amount,
+                                          "currency": this.state.cur,
+                                          "paid": this.state.paid,
+                                          "mes": this.state.message
+                                      }
+                                  ]
+                              }
+                              })
+                            })
                       this.setState({ loading: false});
 
                     }).catch((error) => {
@@ -66,7 +95,7 @@ export default class Cardpay extends Component{
   render(){
     return(
 
-      <KeyboardAvoidingView style={styles.maincontainer} behavior="padding">
+      <KeyboardAvoidingView  behavior="padding">
       <ScrollView>
       <Image source={require('./images/card.png')} style={{ width: Dimensions.get('window').width-10, flex: 0}}/>
       <View style={styles.container} >
@@ -149,11 +178,6 @@ const styles = StyleSheet.create({
     marginBottom: 7,
     height: 40,
     borderRadius: 5 ,
-  },
-  maincontainer:{
-    paddingTop: Platform.OS === 'ios' ? 0 : Expo.Constants.statusBarHeight,
-    flex: 1,
-    paddingLeft: 5,
   },
   container:{
     justifyContent: 'center',

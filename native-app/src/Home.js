@@ -1,92 +1,93 @@
 import React, { Component } from 'react'
 import { View, Text,  Alert, Button, TextInput, TouchableOpacity, Platform, Dimensions,
-  Image, StyleSheet, KeyboardAvoidingView, ScrollView,  } from 'react-native';
-import {Card, CardItem, Thumbnail, H3, Header, Tab, Tabs, TabHeading, Icon, H1, StyleProvider } from 'native-base';
-import getTheme from './../native-base-theme/components';
-import material from './../native-base-theme/variables/material';
-const cluster = require('./../cluster.json');
+   Image, StyleSheet,} from 'react-native';
+import {Card, CardItem, Thumbnail, H1, Container} from 'native-base';
+import { StackNavigator } from 'react-navigation';
 import Cardpay from './Cardpay';
 import Bank from './Bank';
+import Listch from './Listch';
 export default class Home extends Component{
-  state = {
-    user: this.props.user,
-    auth_token: this.props.auth_tok,
-    number: '4242424242424242',
-    exp_month: '2',
-    exp_year: '2019',
-    cvc: '242',
-    amount: '50',
-    cur: 'usd',
-    token: '',
-  }
-  Paynow = async () =>{
-    fetch('https://api.stripe.com/v1/tokens?card[number]='+this.state.number+'&card[exp_month]='+this.state.exp_month+'&card[exp_year]='+this.state.exp_year+'&card[cvc]='+this.state.cvc+'&amount='+this.state.amount+'&currency='+this.state.cur, {
-  method: 'POST',
-  headers: {
-    "Content-Type": "application/x-www-form-urlencoded",
-    "Authorization": "Bearer "+cluster.publishable_key
-  }
-})
-  .then(resp => resp.json())
-    .then(data => {
-      if(typeof(data.error) != "undefined"){
-        Alert.alert("Error", "Error: "+ data.error.message);
-
-      }
-      else{
-        this.setState({ token: data.id });
-        Alert.alert("Success", "Token created "+this.state.token);
-        fetch('https://api.'+cluster.name+'.hasura-app.io/charge', {
-                method: 'post',
-                headers: {
-                  'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                src: this.state.token,
-                amount: this.state.amount,
-                currency: this.state.cur
-
-                })
-              }).then((response) => response.json())
-              .then((res) => {
-                      // Showing response message coming from server updating records.
-                      if(res.status==200 || res.status=="succeeded"){
-                        Alert.alert("Payment successfull", "Transaction id:"+res.id);
-                      }
-                      else{
-                        Alert.alert("Payment Failure", ""+res.message)
-                      }
-                      this.setState({ loading: false});
-
-                    }).catch((error) => {
-                      console.error(error);
-                    });
-      }
-
-          }).catch((error) => {
-            console.error(error);
-          });
-  }
   render(){
-    return(
-       <StyleProvider style={getTheme(material)}>
-      <View style={styles.maincontainer}>
-      <HomeText screen = {this.state.screen} navigation={this.props.navigation}/>
-      <Tabs  onChangeTab={({ i, ref, from }) => this.setState({ screen: i })} >
-        <Tab heading={ <TabHeading><Icon name="ios-card" /><Text> Card Payments</Text></TabHeading>}>
-        <Cardpay />
-        </Tab>
-        <Tab heading={ <TabHeading><Icon name="ios-home"/><Text> Bank Payments </Text></TabHeading>}  >
-        <Bank/>
-        </Tab>
-        </Tabs>
-      </View>
-      </StyleProvider>
-
-
-    );
+    return <Navigator screenProps={this.props} />;
   }
 }
+class HomeScreen extends Component {
+  static navigationOptions={
+    title: 'Stripe Pay',
+  }
+  render() {
+  return(
+        <View style={{
+           paddingTop: Platform.OS === 'ios' ? 0 : Expo.Constants.statusBarHeight,
+           justifyContent: 'center',
+           alignItems: 'center',
+           justifyContent: 'space-between',
+           flex: 1,
+        }}>
+        <View style={{flex: 1,
+                      justifyContent: 'center',
+                      alignItems: 'center',}}>
+        <H1 style ={{justifyContent: 'center',  alignItems: 'center', paddingLeft: 10}}>Welcome to Stripe-pay </H1>
+        </View>
+        <View>
+        <Image source={require('./images/stripe.png')} style={{ width: Dimensions.get('window').width-10, flex: 0}}/>
+        </View>
+        <View style={{flex: 2}}>
+      <Card style={{width: (Dimensions.get('window').width-50), flex:0, }}>
+      <TouchableOpacity onPress={() => this.props.navigation.navigate('Cardpay')}>
+      <View style={{height: 50, backgroundColor: 'purple',justifyContent: 'center',
+      alignItems: 'center',}}>
+      <Text style={{
+        fontSize: 20,
+        color: '#FFFFFF',
+      }}> Pay via  card</Text></View>
+      </TouchableOpacity>
+      </Card>
+
+      <Card style={{width: (Dimensions.get('window').width-50), flex:0, }}>
+      <TouchableOpacity onPress={() => this.props.navigation.navigate('Bankpay')}>
+      <View style={{height: 50, backgroundColor: 'purple',justifyContent: 'center',
+      alignItems: 'center',}}>
+      <Text style={{
+        fontSize: 20,
+        color: '#FFFFFF',
+      }}>Pay via Bank </Text></View>
+      </TouchableOpacity>
+      </Card>
+      <Card style={{width: (Dimensions.get('window').width-50), flex:0, }}>
+      <TouchableOpacity onPress={() => this.props.navigation.navigate('Listch')}>
+      <View style={{height: 50, backgroundColor: 'purple',justifyContent: 'center',
+      alignItems: 'center',}}>
+      <Text style={{
+        fontSize: 20,
+        color: '#FFFFFF',
+      }}>Last 10 Transactions  </Text></View>
+      </TouchableOpacity>
+      </Card>
+      </View>
+      <View style={{
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingTop: 25,
+      }}>
+      <Text style={{
+        fontSize: 15
+      }}> Powered by </Text>
+      <Thumbnail  source={require('./images/hasura.png')}/>
+      <Text style={{
+        fontSize: 15,
+      }}> Hasura</Text>
+      </View>
+        </View>
+      );
+}
+}
+const Navigator = StackNavigator({
+Main: { screen: HomeScreen },
+Cardpay: {screen: Cardpay},
+Bankpay: {screen: Bank},
+Listch: {screen: Listch},
+});
 const styles = StyleSheet.create({
   inputbox: {
     textAlign: 'center',
@@ -98,6 +99,7 @@ const styles = StyleSheet.create({
   maincontainer:{
     paddingTop: Platform.OS === 'ios' ? 0 : Expo.Constants.statusBarHeight,
     flex: 1,
+    paddingLeft: 5,
   },
   container:{
     justifyContent: 'center',
@@ -116,26 +118,3 @@ const styles = StyleSheet.create({
     borderRadius: 5 ,
   },
 });
-class HomeText extends Component{
-    render(){
-      if(this.props.screen===0){
-        return(
-          <Header hasTabs>
-          <H1> Card Payments</H1>
-          </Header>
-        );
-      }
-      if(this.props.screen===1){
-        return(
-          <Header hasTabs>
-            <H1> Bank Payments</H1>
-           </Header>
-        );
-      }
-      return(
-        <Header hasTabs>
-        <H1> Card Payments </H1>
-        </Header>
-      );
-    }
-  }

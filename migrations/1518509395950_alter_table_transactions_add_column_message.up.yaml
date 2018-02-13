@@ -1,0 +1,4 @@
+- args:
+    sql: ALTER TABLE "transactions" ADD COLUMN "message" text NOT NULL DEFAULT 'Payment
+      Succesfull'
+  type: run_sql

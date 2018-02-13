@@ -3,7 +3,10 @@ import { View, Text,  Alert, Button, TextInput, TouchableOpacity, Platform, Dime
 import {Card, CardItem, Thumbnail, H3 } from 'native-base';
 const cluster = require('./../cluster.json');
 
-export default class Home extends Component{
+export default class Bank extends Component{
+  static navigationOptions={
+    title: 'Bank Payment',
+  }
   state = {
     user: this.props.user,
     auth_token: this.props.auth_tok,
@@ -15,6 +18,8 @@ export default class Home extends Component{
     amount: '500',
     cur: 'usd',
     token: '',
+    paid: false,
+    message: 'Payment successfull',
   }
   Paynow = async () =>{
     fetch('https://api.stripe.com/v1/tokens?bank_account[country]='+this.state.country+'&bank_account[currency]='+this.state.cur+'&bank_account[account_holder_name]='+this.state.account_holder_name+'&bank_account[account_holder_type]='+this.state.account_holder_type+'&bank_account[routing_number]='+this.state.routing_number+'&bank_account[account_number]='+this.state.account_number, {
@@ -53,8 +58,29 @@ export default class Home extends Component{
                       else{
                         Alert.alert("Payment Failure", ""+res.message)
                       }
+                      fetch('https://data.'+cluster.name+'.hasura-app.io/v1/query', {
+                              method: 'post',
+                              headers: {
+                                'Content-Type': 'application/json'
+                              },
+                              body: JSON.stringify({
+                                "type": "insert",
+                                "args": {
+                                  "table": "transactions",
+                                  "objects": [
+                                      {
+                                          "user": this.props.screenProps.user,
+                                          "transaction_id": this.state.transaction_id,
+                                          "amount": this.state.amount,
+                                          "currency": this.state.cur,
+                                          "paid": this.state.paid,
+                                          "mes": this.state.message
+                                      }
+                                  ]
+                              }
+                              })
+                            })
                       this.setState({ loading: false});
-                      console.log(res);
 
                     }).catch((error) => {
                       console.error(error);
@@ -67,8 +93,11 @@ export default class Home extends Component{
   }
   render(){
     return(
-      <KeyboardAvoidingView style={styles.maincontainer} behavior="padding">
-      <Image source={require('./images/bank.png')} style={{flex: 0}}/>
+      <KeyboardAvoidingView   behavior="padding">
+      <ScrollView>
+      <View style={styles.container}>
+      <Image source={require('./images/bank.png')} style={{flex:0}}/>
+      </View>
       <View style={styles.container} >
       <H3> Please enter following details to complete payment process </H3>
       <Card style={{width: (Dimensions.get('window').width-50), flex:0 }}>
@@ -131,6 +160,7 @@ export default class Home extends Component{
   </Card>
 
       </View>
+      </ScrollView>
       </KeyboardAvoidingView>
     );
   }
@@ -143,21 +173,11 @@ const styles = StyleSheet.create({
     height: 40,
     borderRadius: 5 ,
   },
-  maincontainer:{
-    paddingTop: Platform.OS === 'ios' ? 0 : Expo.Constants.statusBarHeight,
-    flex: 1,
-    paddingLeft: 5,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   container:{
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
     paddingLeft: 5,
-  },
-  tcard:{
-    flexDirection: 'row',
   },
   inputdou: {
     textAlign: 'center',

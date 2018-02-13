@@ -1,0 +1,4 @@
+- args:
+    role: anonymous
+    table: transactions
+  type: drop_insert_permission

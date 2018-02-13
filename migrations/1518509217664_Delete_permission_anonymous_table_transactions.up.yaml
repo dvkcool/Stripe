@@ -1,0 +1,4 @@
+- args:
+    role: anonymous
+    table: transactions
+  type: drop_select_permission

@@ -1,0 +1,8 @@
+- args:
+    sql: CREATE TABLE "transactions"("user" text NOT NULL, "transaction_id" text NOT
+      NULL, "amount" integer NOT NULL, "currency" text NOT NULL, "paid" boolean NOT
+      NULL, PRIMARY KEY ("transaction_id") )
+  type: run_sql
+- args:
+    name: transactions
+  type: add_existing_table_or_view
