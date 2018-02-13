@@ -14,7 +14,6 @@ export default class Login extends Component{
   }
 
   Loginclick = async () => {
-    Alert.alert("Login start");
     fetch('https://auth.'+cluster.name+'.hasura-app.io/v1/providers/mobile/send-otp', {
           method: 'post',
           headers: {
@@ -34,7 +33,7 @@ export default class Login extends Component{
   }
 
   Checkotp = async() =>{
-    Alert.alert("OTP check start");
+
     fetch('https://auth.'+cluster.name+'.hasura-app.io/v1/login', {
           method: 'post',
           headers: {
@@ -71,6 +70,7 @@ export default class Login extends Component{
                   }
                   else{
                     this.setState({ auth_token: responsejson.auth_token });
+                    Alert.alert("Success", "OTP is verified, Welcome");
                   }
                       }).catch((error) => {
                         console.error(error);

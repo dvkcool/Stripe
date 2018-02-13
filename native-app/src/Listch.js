@@ -6,7 +6,7 @@ import {AppLoading } from 'expo';
 const cluster = require('./../cluster.json');
 export default class Cardpay extends Component{
   static navigationOptions={
-    title: 'Last 10 Payments',
+    title: 'Last Payments',
   }
   state = {
      isLoading: true,
@@ -23,7 +23,7 @@ export default class Cardpay extends Component{
        "args": {
            "table": "transactions",
            "columns": [
-               "*"
+             "*"
            ],
            "where": {
                "user": {
@@ -68,6 +68,9 @@ else{
               <Text>Transaction id: </Text>
               <Text note>{rowData.transaction_id}</Text>
               </Left>
+              <Right>
+              <Status pr = {rowData.paid} />
+              </Right>
             </CardItem>
             <CardItem>
               <Left>
@@ -87,5 +90,19 @@ else{
     </Container>);
 
 }
+  }
+}
+class Status extends Component{
+  render(){
+    if(!this.props.pr){
+      return(
+          <Icon name="ios-alert" style={{color:'red', fontSize: 27}} />
+      );
+    }
+    else{
+      return(
+        <Icon name="ios-checkmark-circle" style={{color:'green', fontSize: 27}} />
+      );
+    }
   }
 }

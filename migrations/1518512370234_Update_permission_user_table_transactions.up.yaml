@@ -1,0 +1,17 @@
+- args:
+    role: user
+    table: transactions
+  type: drop_select_permission
+- args:
+    permission:
+      columns:
+      - user
+      - transaction_id
+      - amount
+      - currency
+      - paid
+      - mes
+      filter: {}
+    role: user
+    table: transactions
+  type: create_select_permission
