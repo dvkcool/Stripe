@@ -92,7 +92,7 @@ The APK can be downloaded from Google Drive from [here](https://drive.google.com
 ### Setting up a stripe account
 1. Create an account on [Stripe](https://stripe.com)
 2. Go to [Dashboard](https://dashboard.stripe.com/account/apikeys) to obtain your API keys:
- ![stripedash](https://github.com/dvkcool/Stripe/blob/master/demo/stripe-dash?raw=true)
+ ![stripedash](https://github.com/dvkcool/Stripe/blob/master/demo/stripe-dash.png?raw=true)
 3. Copy these keys, as they will be required for further steps.
 
 ### Getting the Hasura project
