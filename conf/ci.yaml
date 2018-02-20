@@ -20,3 +20,9 @@ remotes:
     #     container-name:
     #       path: services/app
     #       dockerfile: services/app/Dockerfile
+
+    '{{ cluster.metadata.namespaces.user }}.app':
+      app:
+        dockerfile: microservices/app/Dockerfile
+        path: microservices/app
+

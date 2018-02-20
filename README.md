@@ -100,7 +100,7 @@ Just run the following commands to get the project running perfectly.
 
 ```sh
 # Cloning the project
-$ hasura quickstart dvk/Stripe-pay --type free
+$ hasura quickstart dvk/stripe-pay --type free
 # Add Slack API key to hasura secrets.
 $ hasura secrets update secretkey.key  <Your Stripe secret API KEY>
 # Get hasura user token for otp
