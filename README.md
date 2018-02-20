@@ -18,9 +18,6 @@ Follow along below to learn about how this quickstart  works.
 ## Hasura APIs used
 1. Auth API
    We used the Auth API for the login/signup part *with OTP*
-   ____________________________
-   ![login](https://github.com/dvkcool/Stripe/blob/master/demo/login.png)
-   ______________________________
 
 2. The Data API
    For storing various data related to transactions and retrieving it, we have used the Data APIs
@@ -101,7 +98,7 @@ Just run the following commands to get the project running perfectly.
 ```sh
 # Cloning the project
 $ hasura quickstart dvk/stripe-pay --type free
-# Add Slack API key to hasura secrets.
+# Add Stripe secret API key to hasura secrets.
 $ hasura secrets update secretkey.key  <Your Stripe secret API KEY>
 # Get hasura user token for otp
 $ hasura user-info
@@ -203,5 +200,6 @@ The bank payment doesn't work well due to lack of an international account for v
 ___________________
 Happy Developing :)
 ___________________
-Divyanshu Kumar
+Team T13NE1
 _____
+
