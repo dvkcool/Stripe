@@ -193,14 +193,15 @@ $ hasura microservice logs api
 However, this app is our collaborative effort, irrespective of our languages.
 The react front-end will be updated soon.
 
-## Found a bug
-Please feel free to report any possible bugs [here](https://github.com/dvkcool/Stripe), or mail to divyanshukumarg@gmail.com
+## Found a bug?
+Please feel free to report a bug [here](https://github.com/dvkcool/Stripe), or mail me at divyanshukumarg@gmail.com
+
 ### Known issues
 The bank payment doesn't work well due to the lack of an international account for verification, we would be glad if you could come up with a solution, we are trying to figure it out too.
 
 ___________________
 Happy Developing :)
 ___________________
-Team T13NE1
+Divyanshu Kumar
 _____
 
